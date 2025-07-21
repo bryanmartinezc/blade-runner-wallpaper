@@ -43,7 +43,7 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
-      // Animación de la capa del personaje
+      // Movimiento de capa del personaje
       cloakOffset += cloakDirection * 0.2;
       if (cloakOffset > 3 || cloakOffset < -3) cloakDirection *= -1;
       ctx.fillStyle = 'rgba(100, 0, 150, 0.15)';
@@ -55,13 +55,5 @@
       ctx.strokeStyle = "rgba(180, 0, 255, 0.6)";
       ctx.lineWidth = 1;
       for (let drop of rainDrops) {
-        ctx.beginPath();
-        ctx.moveTo(drop.x, drop.y);
-        ctx.lineTo(drop.x, drop.y + 10);
-        ctx.stroke();
-        drop.y += drop.speed;
-        if (drop.y > canvas.height) drop.y = 0;
-      }
-
-      // Luces parpadeantes en edificios
+       
      
