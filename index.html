@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Blade Runner Web Wallpaper</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #1a0026;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const background = new Image();
+    background.src = 'blade-runner.jpeg'; // Asegúrate de subir esta imagen con este nombre exacto
+
+    const rainDrops = [];
+    for (let i = 0; i < 300; i++) {
+      rainDrops.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        speed: 4 + Math.random() * 4
+      });
+    }
+
+    let lightningTimer = 0;
+    let cloakOffset = 0;
+    let cloakDirection = 1;
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+      // Animación de la capa del personaje
+      cloakOffset += cloakDirection * 0.2;
+      if (cloakOffset > 3 || cloakOffset < -3) cloakDirection *= -1;
+      ctx.fillStyle = 'rgba(100, 0, 150, 0.15)';
+      ctx.beginPath();
+      ctx.arc(canvas.width * 0.6, canvas.height * 0.7 + cloakOffset, 80, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Lluvia animada
+      ctx.strokeStyle = "rgba(180, 0, 255, 0.6)";
+      ctx.lineWidth = 1;
+      for (let drop of rainDrops) {
+        ctx.beginPath();
+        ctx.moveTo(drop.x, drop.y);
+        ctx.lineTo(drop.x, drop.y + 10);
+        ctx.stroke();
+        drop.y += drop.speed;
+        if (drop.y > canvas.height) drop.y = 0;
+      }
+
+      // Luces parpadeantes en edificios
+     
