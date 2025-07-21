@@ -24,7 +24,14 @@
     canvas.height = window.innerHeight;
 
     const background = new Image();
-    background.src = 'blade-runner.jpg'; 
+    background.onload = () => {
+  animate();
+};
+
+background.onerror = () => {
+  console.warn("No se pudo cargar la imagen. Se ejecuta animación sin fondo.");
+  animate();
+};; 
     const rainDrops = [];
     for (let i = 0; i < 300; i++) {
       rainDrops.push({
